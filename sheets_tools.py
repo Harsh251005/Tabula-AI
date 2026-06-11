@@ -85,3 +85,33 @@ def update_range(
     )
 
     return result
+
+
+def append_rows(
+    spreadsheet_id: str,
+    range_name: str,
+    values: list[list]
+) -> dict:
+    """
+    Appends rows after the last non-empty row.
+    """
+    service = get_sheets_service()
+
+    body = {
+        "values": values
+    }
+
+    result = (
+        service.spreadsheets()
+        .values()
+        .append(
+            spreadsheetId=spreadsheet_id,
+            range=range_name,
+            valueInputOption="USER_ENTERED",
+            insertDataOption="INSERT_ROWS",
+            body=body
+        )
+        .execute()
+    )
+
+    return result
