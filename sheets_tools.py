@@ -56,3 +56,32 @@ def read_range(
     )
 
     return result.get("values", [])
+
+
+def update_range(
+    spreadsheet_id: str,
+    range_name: str,
+    values: list[list]
+) -> dict:
+    """
+    Updates a range with provided values.
+    """
+    service = get_sheets_service()
+
+    body = {
+        "values": values
+    }
+
+    result = (
+        service.spreadsheets()
+        .values()
+        .update(
+            spreadsheetId=spreadsheet_id,
+            range=range_name,
+            valueInputOption="USER_ENTERED",
+            body=body
+        )
+        .execute()
+    )
+
+    return result
