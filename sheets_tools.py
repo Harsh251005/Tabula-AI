@@ -185,3 +185,17 @@ def get_sheet_schema(spreadsheet_id: str) -> dict:
         "spreadsheet_title": metadata["properties"]["title"],
         "sheets": sheets_info,
     }
+
+
+def build_sheet_context(spreadsheet_id: str):
+    schema = get_sheet_schema(spreadsheet_id)
+
+    preview = read_range(
+        spreadsheet_id,
+        "A1:Z20"
+    )
+
+    return {
+        "schema": schema,
+        "preview": preview
+    }

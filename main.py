@@ -4,7 +4,8 @@ from sheets_tools import (
     update_range,
     append_rows,
     get_sheet_metadata,
-    get_sheet_schema
+    get_sheet_schema,
+    build_sheet_context
 )
 
 def main():
@@ -49,7 +50,10 @@ def main():
         spreadsheet_id=SPREADSHEET_ID
     )
 
-    print(SCHEMA)
+    # print(SCHEMA)
+
+    sheet_context = build_sheet_context(spreadsheet_id=SPREADSHEET_ID)
+    print(sheet_context)
 
 if __name__ == "__main__":
     main()
