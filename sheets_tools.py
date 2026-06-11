@@ -115,3 +115,20 @@ def append_rows(
     )
 
     return result
+
+
+def get_sheet_metadata(
+    spreadsheet_id: str
+) -> dict:
+    """
+    Returns spreadsheet metadata including sheet names.
+    """
+    service = get_sheets_service()
+
+    return (
+        service.spreadsheets()
+        .get(
+            spreadsheetId=spreadsheet_id
+        )
+        .execute()
+    )

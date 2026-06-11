@@ -1,4 +1,4 @@
-from sheets_tools import create_spreadsheet, read_range, update_range, append_rows
+from sheets_tools import create_spreadsheet, read_range, update_range, append_rows, get_sheet_metadata
 
 def main():
     # sheet = create_spreadsheet("Tabula Test")
@@ -30,10 +30,13 @@ def main():
         spreadsheet_id=SPREADSHEET_ID,
         range_name="A:B",
         values=[
-            ["Alice", 3000],
-            ["Bob", 4000]
+            ["Ram", 5000],
+            ["Harsh", 6000]
         ]
     )
+
+    sheet_metadata = get_sheet_metadata(spreadsheet_id=SPREADSHEET_ID)
+    print(sheet_metadata)
 
 if __name__ == "__main__":
     main()
