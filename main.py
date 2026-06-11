@@ -1,4 +1,11 @@
-from sheets_tools import create_spreadsheet, read_range, update_range, append_rows, get_sheet_metadata
+from sheets_tools import (
+    create_spreadsheet,
+    read_range,
+    update_range,
+    append_rows,
+    get_sheet_metadata,
+    get_sheet_schema
+)
 
 def main():
     # sheet = create_spreadsheet("Tabula Test")
@@ -12,7 +19,7 @@ def main():
         range_name="A1:Z100"
     )
 
-    print(data)
+    # print(data)
 
     updated_data = update_range(
         spreadsheet_id=SPREADSHEET_ID,
@@ -24,7 +31,7 @@ def main():
         ]
     )
 
-    print(updated_data)
+    # print(updated_data)
 
     append_rows(
         spreadsheet_id=SPREADSHEET_ID,
@@ -36,7 +43,13 @@ def main():
     )
 
     sheet_metadata = get_sheet_metadata(spreadsheet_id=SPREADSHEET_ID)
-    print(sheet_metadata)
+    # print(sheet_metadata)
+
+    SCHEMA = get_sheet_schema(
+        spreadsheet_id=SPREADSHEET_ID
+    )
+
+    print(SCHEMA)
 
 if __name__ == "__main__":
     main()

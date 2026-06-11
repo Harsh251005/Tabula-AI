@@ -132,3 +132,56 @@ def get_sheet_metadata(
         )
         .execute()
     )
+
+
+def get_sheet_schema(spreadsheet_id: str) -> dict:
+    """
+    Returns sheet names, headers and dimensions.
+    Useful for LLM context.
+    """
+
+    service = get_sheets_service()
+
+    metadata = (
+        service.spreadsheets()
+        .get(spreadsheetId=spreadsheet_id)
+        .execute()
+    )
+
+    sheets_info = []
+
+    for sheet in metadata["sheets"]:
+
+        title = sheet["properties"]["title"]
+        row_count = sheet["properties"]["gridProperties"]["rowCount"]
+        column_count = sheet["properties"]["gridProperties"]["columnCount"]
+
+        try:
+            header_result = (
+                service.spreadsheets()
+                .values()
+                .get(
+                    spreadsheetId=spreadsheet_id,
+                    range=f"{title}!1:1"
+                )
+                .execute()
+            )
+
+            headers = header_result.get("values", [[]])[0]
+
+        except Exception:
+            headers = []
+
+        sheets_info.append(
+            {
+                "sheet_name": title,
+                "row_count": row_count,
+                "column_count": column_count,
+                "headers": headers,
+            }
+        )
+
+    return {
+        "spreadsheet_title": metadata["properties"]["title"],
+        "sheets": sheets_info,
+    }
