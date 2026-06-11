@@ -2,6 +2,8 @@ from googleapiclient.discovery import build
 
 from google_auth import authenticate
 
+from langchain_core.tools import tool
+
 
 def get_sheets_service():
     """
@@ -11,6 +13,7 @@ def get_sheets_service():
     return build("sheets", "v4", credentials=creds)
 
 
+@tool("create_spreadsheet")
 def create_spreadsheet(title: str) -> dict:
     """
     Creates a new Google Spreadsheet.
@@ -35,6 +38,7 @@ def create_spreadsheet(title: str) -> dict:
     }
 
 
+@tool("read_range")
 def read_range(
     spreadsheet_id: str,
     range_name: str
@@ -58,6 +62,7 @@ def read_range(
     return result.get("values", [])
 
 
+@tool("update_range")
 def update_range(
     spreadsheet_id: str,
     range_name: str,
@@ -87,6 +92,7 @@ def update_range(
     return result
 
 
+@tool("append_rows")
 def append_rows(
     spreadsheet_id: str,
     range_name: str,
@@ -116,7 +122,6 @@ def append_rows(
 
     return result
 
-
 def get_sheet_metadata(
     spreadsheet_id: str
 ) -> dict:
@@ -133,7 +138,7 @@ def get_sheet_metadata(
         .execute()
     )
 
-
+@tool("get_sheet_schema")
 def get_sheet_schema(spreadsheet_id: str) -> dict:
     """
     Returns sheet names, headers and dimensions.
@@ -186,16 +191,10 @@ def get_sheet_schema(spreadsheet_id: str) -> dict:
         "sheets": sheets_info,
     }
 
-
-def build_sheet_context(spreadsheet_id: str):
-    schema = get_sheet_schema(spreadsheet_id)
-
-    preview = read_range(
-        spreadsheet_id,
-        "A1:Z20"
-    )
-
-    return {
-        "schema": schema,
-        "preview": preview
-    }
+TOOLS = [
+    create_spreadsheet,
+    read_range,
+    update_range,
+    append_rows,
+    get_sheet_schema
+]
