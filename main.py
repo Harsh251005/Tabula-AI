@@ -1,16 +1,16 @@
-# This is a sample Python script.
+from sheets_tools import create_spreadsheet, read_range
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def main():
+    # sheet = create_spreadsheet("Tabula Test")
 
+    # print(sheet)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    data = read_range(
+        spreadsheet_id="19aNDs4yLdmDgQ2u49DJlDOFUf8aZ0H8t59QmcUvhtcQ",
+        range_name="A1:Z100"
+    )
 
+    print(data)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()
