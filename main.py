@@ -1,18 +1,19 @@
-from multiprocessing import context
+import asyncio
+from src.agents.sheets_agent import agent
+from agents import Runner
 
-from agent import run_agent
 
-def main():
+async def main():
 
-    SPREADSHEET_ID = "19aNDs4yLdmDgQ2u49DJlDOFUf8aZ0H8t59QmcUvhtcQ"
+    while True:
+        user_input = input("User: ")
 
-    user_query = "Remove all the duplicate data present in the sheet"
+        if user_input.lower() == "exit":
+            break
 
-    response = run_agent(user_query=user_query, spreadsheet_id=SPREADSHEET_ID)
-
-    print(f"Tool Call: {response.tool_calls}")
-    print(response.content)
+        result = await Runner.run(agent, user_input)
+        print(f"TabulaAI: {result.final_output}")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
