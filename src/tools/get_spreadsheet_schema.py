@@ -1,11 +1,6 @@
 from agents import function_tool
-from googleapiclient.discovery import build
-from src.authentication.google_auth import authenticate
+from src.tools.sheets_service import get_sheets_service
 
-
-def get_sheets_service():
-    creds = authenticate()
-    return build("sheets", "v4", credentials=creds)
 
 
 @function_tool
