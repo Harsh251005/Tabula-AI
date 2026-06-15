@@ -1,4 +1,4 @@
-from src.authentication.google_auth import authenticate
+from tabula_ai.authentication.google_auth import authenticate
 
 def main():
     credentials = authenticate()

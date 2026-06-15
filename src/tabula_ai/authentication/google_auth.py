@@ -6,7 +6,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file"
+    "https://www.googleapis.com/auth/drive"
 ]
 
 
@@ -26,7 +26,7 @@ def authenticate():
 
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                r"D:\Harsh\Code\Personal Projects\Tabula AI\credentials.json",
+                r"/credentials.json",
                 SCOPES
             )
             creds = flow.run_local_server(port=0)
