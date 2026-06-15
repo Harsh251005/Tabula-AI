@@ -1,7 +1,7 @@
 from agents import Agent
-from config.settings import settings
-from src.instructions.sheet_agent_instruction import sheets_agent_instruction
-from src.tools.get_tools import TOOLS
+from tabula_ai.config.settings import settings
+from tabula_ai.instructions.sheet_agent_instruction import sheets_agent_instruction
+from tabula_ai.tools.get_tools import TOOLS
 
 agent = Agent(
     name="Sheets_Agent",
