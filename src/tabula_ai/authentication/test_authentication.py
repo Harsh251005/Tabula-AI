@@ -1,4 +1,4 @@
-from google_auth import authenticate
+from src.authentication.google_auth import authenticate
 
 def main():
     credentials = authenticate()

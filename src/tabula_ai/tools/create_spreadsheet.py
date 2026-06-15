@@ -1,5 +1,6 @@
 from agents import function_tool
-from src.tools.sheets_service import get_sheets_service
+from tabula_ai.tools.sheets_service import get_sheets_service
+
 
 @function_tool
 def create_spreadsheet(title: str) -> dict:
@@ -7,6 +8,8 @@ def create_spreadsheet(title: str) -> dict:
     Creates a new Google Spreadsheet.
     """
     service = get_sheets_service()
+
+    print(f"[TOOL] Creating new spreadsheet with title {title}")
 
     spreadsheet = {
         "properties": {

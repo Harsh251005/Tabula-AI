@@ -1,6 +1,5 @@
 from agents import function_tool
-from src.tools.sheets_service import get_sheets_service
-
+from tabula_ai.tools.sheets_service import get_sheets_service
 
 
 @function_tool
@@ -10,6 +9,8 @@ def get_spreadsheet_schema(spreadsheet_id: str) -> dict:
     and row/column counts. Call this before writing to avoid hallucinations.
     """
     service = get_sheets_service()
+
+    print(f"[TOOL] Getting schema for spreadsheet {spreadsheet_id}")
 
     # Get spreadsheet metadata (title + all sheet names)
     spreadsheet = (

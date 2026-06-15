@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 
-from src.authentication.google_auth import authenticate
+from tabula_ai.authentication.google_auth import authenticate
 
 def get_sheets_service():
     """

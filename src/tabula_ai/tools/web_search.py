@@ -1,11 +1,12 @@
 from agents import function_tool
 from tavily import AsyncTavilyClient
-from config.settings import settings
+from tabula_ai.config.settings import settings
 
 
 @function_tool
 async def web_search(query: str, max_results: int = 5) -> str:
     """Search the web for a given query."""
+    print(f"[TOOL] Searching for {query}")
     client = AsyncTavilyClient(api_key=settings.TAVILY_API_KEY)
     response = await client.search(query, max_results=max_results)
     results = [

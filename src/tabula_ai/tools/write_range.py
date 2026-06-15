@@ -1,6 +1,6 @@
-from agents import function_tool
 from typing import List
-from src.tools.sheets_service import get_sheets_service
+from agents import function_tool
+from tabula_ai.tools.sheets_service import get_sheets_service
 
 
 @function_tool
@@ -21,6 +21,8 @@ def write_range(
         values: 2D list of values. e.g. [["Name", "Age"], ["Harsh", 20]]
     """
     service = get_sheets_service()
+
+    print(f"[TOOL] Writing values in {sheet_name}")
 
     range_name = f"{sheet_name}!{start_cell}"
 
