@@ -223,7 +223,7 @@ def render_error(message: str):
 # ── Agent runner ──────────────────────────────────────────────────────────────
 
 def run_agent(user_input: str, conversation_id: str, spreadsheet_id: str) -> str:
-    from tabula_ai.agent.supervisor_agent import supervisor_agent
+    from tabula_ai.agents.supervisor_agent import supervisor_agent
     from tabula_ai.db.memory import save_message, get_recent_messages
     from agents import Runner
 

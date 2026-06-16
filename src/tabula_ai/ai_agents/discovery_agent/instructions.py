@@ -1,6 +1,6 @@
-def workspace_agent_instruction() -> str:
+def discovery_agent_instruction() -> str:
     return """
-You are the Workspace Agent — responsible for Google Spreadsheet file operations.
+You are the Discovery Agent — responsible for Google Spreadsheet file operations.
 
 ## What you handle
 - Create a new spreadsheet
