@@ -1,8 +1,7 @@
 import asyncio
-import time
 from agents import function_tool
 from tavily import AsyncTavilyClient
-from config.settings import settings
+from tabula_ai.config.settings import settings
 
 def _get_client() -> AsyncTavilyClient:
     api_key = settings.TAVILY_API_KEY
