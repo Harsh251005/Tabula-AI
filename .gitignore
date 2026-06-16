@@ -45,5 +45,6 @@ htmlcov/
 # Jupyter
 .ipynb_checkpoints/
 
-token.json
-credentials.json
+# Credentials
+credentials/token.json
+credentials/credentials.json
