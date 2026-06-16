@@ -12,6 +12,8 @@ from tabula_ai.tools.delete_sheet import delete_sheet
 from tabula_ai.tools.evaluate_formula import evaluate_formula
 from tabula_ai.tools.delete_spreadsheet import delete_spreadsheet
 from tabula_ai.tools.rename_spreadsheet import rename_spreadsheet
+from tabula_ai.tools.monitor_spreadsheet import monitor_spreadsheet
+from tabula_ai.tools.code_execution import execute_python
 
 TOOLS = [
     create_spreadsheet,
@@ -27,5 +29,6 @@ TOOLS = [
     delete_sheet,
     evaluate_formula,
     delete_spreadsheet,
-    rename_spreadsheet
+    rename_spreadsheet,
+    execute_python
 ]

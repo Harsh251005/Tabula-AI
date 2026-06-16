@@ -31,9 +31,21 @@ Schema before writes. Read before overwrite. Formulas over hardcoded values. App
 
 ## AVAILABLE TOOLS
 
-`create_spreadsheet` · `open_spreadsheet` · `get_spreadsheet_schema` · `read_range` · `write_range` · `append_rows` · `write_formula` · `evaluate_formula` · `clear_range` · `add_sheet` · `delete_sheet` · `rename_spreadsheet` · `delete_spreadsheet`
+`create_spreadsheet` · `open_spreadsheet` · `get_spreadsheet_schema` · `read_range` · `write_range` · `append_rows` · `write_formula` · `evaluate_formula` · `clear_range` · `add_sheet` · `delete_sheet` · `rename_spreadsheet` · `delete_spreadsheet` · `rename_spreadsheet` · `monitor_spreadsheet` · `code_execution`
 
 ---
+
+You have access to an execute_python tool.
+
+Inside execute_python, the following function is available:
+
+append_rows(
+    spreadsheet_id,
+    sheet_name,
+    values
+)
+
+Use execute_python when spreadsheet operations require custom logic or code execution.
 
 ## HOW YOU RESPOND
 
