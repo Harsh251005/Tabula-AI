@@ -98,50 +98,27 @@ def ensure_credentials() -> Path:
     return creds_path
 
 
-def ensure_authenticated(creds_path: Path):
-    import tabula_ai.authentication.google_auth as auth_module
+def ensure_authenticated(_creds_path: Path):
+    """Authenticate via the central auth module.
 
-    token_path = Path.home() / ".tabula" / "token.json"
+    The ``_creds_path`` parameter is kept for API compatibility but is not
+    used here — the auth module resolves paths from the project root itself.
+    """
+    from tabula_ai.authentication.google_auth import authenticate
 
-    def patched_authenticate():
-        from google.auth.transport.requests import Request
-        from google.oauth2.credentials import Credentials
-        from google_auth_oauthlib.flow import InstalledAppFlow
+    console.print()
+    console.print(Panel(
+        "A browser window will open for Google sign-in.\n"
+        f"[{DIM}]Tabula only requests access to your spreadsheets — nothing else.[/{DIM}]",
+        title="[medium_purple]  Google Sign-in[/medium_purple]",
+        border_style=PURPLE,
+        padding=(1, 2),
+    ))
 
-        SCOPES = [
-            "https://www.googleapis.com/auth/spreadsheets",
-            "https://www.googleapis.com/auth/drive",
-        ]
+    creds = authenticate()
 
-        creds = None
-        if token_path.exists():
-            creds = Credentials.from_authorized_user_file(str(token_path), SCOPES)
-
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                console.print()
-                console.print(Panel(
-                    "A browser window will open for Google sign-in.\n"
-                    f"[{DIM}]Tabula only requests access to your spreadsheets — nothing else.[/{DIM}]",
-                    title="[medium_purple]  Google Sign-in[/medium_purple]",
-                    border_style=PURPLE,
-                    padding=(1, 2),
-                ))
-                flow = InstalledAppFlow.from_client_secrets_file(str(creds_path), SCOPES)
-                creds = flow.run_local_server(port=0)
-
-            token_path.parent.mkdir(exist_ok=True)
-            with open(token_path, "w") as f:
-                f.write(creds.to_json())
-
-            console.print(f"  [{SUCCESS_CLR}]✓  Signed in successfully![/{SUCCESS_CLR}]")
-
-        return creds
-
-    auth_module.authenticate = patched_authenticate
-    return patched_authenticate()
+    console.print(f"  [{SUCCESS_CLR}]✓  Signed in successfully![/{SUCCESS_CLR}]")
+    return creds
 
 
 # ── Spreadsheet picker ────────────────────────────────────────────────────────
@@ -246,7 +223,7 @@ def render_error(message: str):
 # ── Agent runner ──────────────────────────────────────────────────────────────
 
 def run_agent(user_input: str, conversation_id: str, spreadsheet_id: str) -> str:
-    from tabula_ai.agent.sheets_agent import agent
+    from tabula_ai.agent.supervisor_agent import supervisor_agent
     from tabula_ai.db.memory import save_message, get_recent_messages
     from agents import Runner
 
@@ -261,7 +238,7 @@ def run_agent(user_input: str, conversation_id: str, spreadsheet_id: str) -> str
             *[{"role": m["role"], "content": m["content"]} for m in history],
         ]
 
-        result = await Runner.run(agent, input=input_messages)
+        result = await Runner.run(supervisor_agent, input=input_messages)
         response = result.final_output
 
         save_message(conversation_id, role="assistant", content=response)
