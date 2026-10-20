@@ -1,4 +1,4 @@
-from src.tabula_ai.ai_agents.discovery_agent.agent import discovery_agent
+from tabula_ai.ai_agents.discovery_agent.agent import discovery_agent
 import asyncio
 from agents import Runner
 
